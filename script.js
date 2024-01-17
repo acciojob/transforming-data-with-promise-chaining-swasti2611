@@ -1,92 +1,54 @@
-const input = document.getElementById('ip');
-const output = document.getElementById('output');
-const btn = document.getElementById('btn');
-
-btn.addEventListener('click', () => {
-  const promise1=new Promise((resolve,reject)=>{
-setTimeout(() => {
-    resolve(input.value)
-}, 2000);
-
-  }).then((data)=>{
-  output.innerHTML=`Result:${data}`;
-       return data;
-  })
-  .then((data)=>{
-    let promise2=new Promise((resolve,reject)=>{
+const output = document.getElementById("output");
+const ip = document.getElementById("ip");
+const btn = document.getElementById("btn");
+ 
+btn.addEventListener("click", startFn);
+ 
+function startFn() {
+  const promise1 = new Promise((resolve, reject) => {
+    const start = ip.value;
+    setTimeout(() => {
+      output.textContent = `Result: ${start}`;
+      resolve(start);
+    }, 2000);
+  });
+  promise1
+    .then((value) => {
+      return new Promise((resolve, reject) => {
         setTimeout(() => {
-            resolve(data)
-        }, 2000);
+          output.textContent = `Result: ${value * 2}`;
+          resolve(value * 2);
+        }, 1000);
+      });
     })
-    return promise2;
-  })
-  .then((data)=>{
-    output.innerHTML=`Result:${data}`;
-    return data;
-  })
-  .then((data)=>{
-        const promise3=new Promise((resolve,reject)=>{
-            setTimeout(() => {
-                resolve(data*2)
-            }, 1000);
-        })
-        return promise3;
-  })
-  .then((data)=>{
-    output.innerHTML=`Result:${data}`;
-    return data;
-  })
-  .then((data)=>{
-        const promise4=new Promise((resolve,reject)=>{
-                setTimeout(() => {
-                    resolve(data-3)
-               }, 1000);
-          })
-        return promise4;
-  })
-  .then((data)=>{
-    output.innerHTML=`Result:${data}`;
-    return data;
-  })
-  .then((data)=>{
-    const promise5=new Promise((resolve,reject)=>{
-     setTimeout(()=>{
-        resolve(data/2)
-     },1000)
+    .then((value) => {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          output.textContent = `Result: ${value - 3}`;
+          resolve(value - 3);
+        }, 1000);
+      });
     })
-    return promise5;
-  })
-  .then((data)=>{
-    output.innerHTML=`Result:${data}`;
-    return data;
-  })
-  .then((data)=>{
-    const promise6=new Promise((resolve,reject)=>{
-     setTimeout(()=>{
-        resolve(data+10)
-     },1000)
+    .then((value) => {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          output.textContent = `Result: ${value / 2}`;
+          resolve(value / 2);
+        }, 1000);
+      });
     })
-    return promise6;
-  })
-  .then((data)=>{
-    output.innerHTML=`Result:${data}`;
-    return data;
-  })
-  .then((data)=>{
-    output.innerHTML=`Final Result:${data}`;
-    return data;
-  })
-
-
-
-
-
-
-
-
-
-
-
-
-
-});
+    .then((value) => {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          output.textContent = `Result: ${value + 10}`;
+          resolve(value + 10);
+        }, 1000);
+      });
+    })
+    .then((value) => {
+      output.textContent = `Final Result: ${value}`;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
